@@ -1,9 +1,9 @@
 import { Client, Account, ID } from 'appwrite';
 
-const endpoint = 'https://<REGION>.cloud.appwrite.io/v1';
+const endpoint = 'https://backend.unboxd.cloud/v1';
 const projectId = '<PROJECT_ID>';
 
-if (!endpoint || !projectId) {
+if (!endpoint || !projectId || projectId === '<PROJECT_ID>') {
   throw new Error('Missing Appwrite endpoint and project ID');
 }
 
