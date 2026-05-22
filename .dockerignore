@@ -1,0 +1,56 @@
+# .dockerignore for AI-Native Enterprise App Builder
+
+# Ignore node_modules in the root (they will be installed in the container)
+node_modules
+
+# Ignore git directory
+.git
+.gitignore
+
+# Ignore local environment files
+.env.local
+.env*.local
+
+# Ignore build output
+.next
+out
+
+# Ignore logs
+logs
+*.log
+
+# Ignore IDE files
+.idea
+.vscode
+*.swp
+*.swo
+
+# Ignore documentation
+*.md
+
+# Ignore test files
+*.test.js
+*.spec.js
+__tests__
+
+# Ignore coverage reports
+coverage
+
+# Ignore DS_Store files
+.DS_Store
+
+# Ignore npm debug logs
+npm-debug.log*
+
+# Ignore yarn cache
+yarn-error.log
+.yarn/cache
+
+# Ignore local storage
+storage
+
+# Ignore scripts that shouldn't be in the image
+scripts
+
+# Ignore deployment configurations (they contain sensitive data)
+dokplou.config.js

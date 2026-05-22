@@ -1,0 +1,77 @@
+# Docker Compose for AI-Native Enterprise App Builder
+
+version: '3.8'
+
+services:
+  # Main application service
+  app:
+    build: .
+    container_name: ai-enterprise-builder
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Appwrite Configuration
+      - NEXT_PUBLIC_APPWRITE_ENDPOINT=https://your-appwrite-endpoint.com/v1
+      - NEXT_PUBLIC_APPWRITE_PROJECT_ID=your-project-id
+      
+      # Database Configuration
+      - NEXT_PUBLIC_APPWRITE_DATABASE_ID=your-database-id
+      - NEXT_PUBLIC_APPWRITE_APPS_COLLECTION_ID=your-apps-collection-id
+      - NEXT_PUBLIC_APPWRITE_COMPONENTS_COLLECTION_ID=your-components-collection-id
+      - NEXT_PUBLIC_APPWRITE_TEMPLATES_COLLECTION_ID=your-templates-collection-id
+      
+      # Governance Configuration
+      - NEXT_PUBLIC_APPWRITE_GOVERNANCE_DATABASE_ID=your-governance-db-id
+      - NEXT_PUBLIC_APPWRITE_ROLES_COLLECTION_ID=your-roles-collection-id
+      - NEXT_PUBLIC_APPWRITE_POLICIES_COLLECTION_ID=your-policies-collection-id
+      - NEXT_PUBLIC_APPWRITE_AUDIT_LOGS_COLLECTION_ID=your-audit-logs-collection-id
+      - NEXT_PUBLIC_APPWRITE_COMPLIANCE_RULES_COLLECTION_ID=your-compliance-rules-collection-id
+      
+      # AI Configuration
+      - NEXT_PUBLIC_APPWRITE_AI_DATABASE_ID=your-ai-db-id
+      - NEXT_PUBLIC_APPWRITE_PROMPTS_COLLECTION_ID=your-prompts-collection-id
+      - NEXT_PUBLIC_APPWRITE_AI_MODELS_COLLECTION_ID=your-ai-models-collection-id
+      - NEXT_PUBLIC_APPWRITE_GENERATIONS_COLLECTION_ID=your-generations-collection-id
+      
+      # Tenancy Configuration
+      - NEXT_PUBLIC_APPWRITE_TENANCY_DATABASE_ID=your-tenancy-db-id
+      - NEXT_PUBLIC_APPWRITE_TENANTS_COLLECTION_ID=your-tenants-collection-id
+      - NEXT_PUBLIC_APPWRITE_TEAMS_COLLECTION_ID=your-teams-collection-id
+      - NEXT_PUBLIC_APPWRITE_INVITATIONS_COLLECTION_ID=your-invitations-collection-id
+      
+      # Node environment
+      - NODE_ENV=production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - app-network
+
+  # Optional: Nginx reverse proxy
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: ai-enterprise-nginx
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf
+  #     - ./ssl:/etc/nginx/ssl
+  #   depends_on:
+  #     - app
+  #   networks:
+  #     - app-network
+
+# Define network for inter-service communication
+networks:
+  app-network:
+    driver: bridge
+
+# Volumes (if needed for persistent storage)
+# volumes:
+#   app-data:
